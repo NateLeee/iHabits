@@ -28,7 +28,7 @@ struct ContentView: View {
                 Image(systemName: "plus")
             }))
                 .sheet(isPresented: $showingSheet) {
-                    Text("Sheet View!")
+                    SheetView(activitiesArray: self.activitiesArray)
             }
         }
     }
