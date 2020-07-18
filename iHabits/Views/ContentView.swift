@@ -9,8 +9,28 @@
 import SwiftUI
 
 struct ContentView: View {
+    @ObservedObject var activitiesArray = ActivitiesArray()
+    
+    @State private var showingSheet = false
+    
     var body: some View {
-        Text("Hello, World!")
+        NavigationView {
+            List(activitiesArray.activities) { activity in
+                Text(activity.name)
+            }
+            .navigationBarTitle("iHabits")
+            .navigationBarItems(trailing: Button(action: {
+                // TODO: - Make it happen
+                // Bring up the adding sheet
+                self.showingSheet.toggle()
+                
+            }, label: {
+                Image(systemName: "plus")
+            }))
+                .sheet(isPresented: $showingSheet) {
+                    Text("Sheet View!")
+            }
+        }
     }
 }
 

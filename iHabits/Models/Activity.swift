@@ -8,11 +8,12 @@
 
 import Foundation
 
-struct Activity: Codable {
+struct Activity: Codable, Identifiable {
+    var id: UUID = UUID()
     var name: String
     var completedTimes: Int
 }
 
-class ActivitiesArray {
-    var activities: [Activity] = [Activity]()
+class ActivitiesArray: ObservableObject {
+    @Published var activities: [Activity] = [Activity]()
 }
