@@ -15,5 +15,28 @@ struct Activity: Codable, Identifiable {
 }
 
 class ActivitiesArray: ObservableObject {
-    @Published var activities: [Activity] = [Activity]()
+    @Published var activities: [Activity] {
+        didSet {
+            let jsonEncoder = JSONEncoder()
+            let encoded = try? jsonEncoder.encode(activities)
+            UserDefaults.standard.set(encoded, forKey: "ActivitiesArray")
+        }
+    }
+    
+    init() {
+        // Try to decode from UserDefaults
+        let jsonDecoder = JSONDecoder()
+        
+        guard let data =  UserDefaults.standard.data(forKey: "ActivitiesArray") else {
+            activities = [Activity]()
+            return
+        }
+        
+        guard let decoded = try? jsonDecoder.decode([Activity].self, from: data) else {
+            activities = [Activity]()
+            return
+        }
+        
+        activities = decoded
+    }
 }

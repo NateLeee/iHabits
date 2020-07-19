@@ -16,7 +16,7 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List(activitiesArray.activities) { activity in
-                NavigationLink(destination: DetailView()) {
+                NavigationLink(destination: DetailView(activity: activity)) {
                     Text(activity.name)
                 }
             }
