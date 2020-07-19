@@ -15,14 +15,19 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            List(activitiesArray.activities) { activity in
-                NavigationLink(destination: DetailView(activity: activity)) {
-                    Text(activity.name)
+            List {
+                ForEach(activitiesArray.activities) { activity in
+                    NavigationLink(destination: DetailView(activity: activity)) {
+                        Text(activity.name)
+                    }
+                }
+                .onDelete { (indexSet) in
+                    self.deleteActivity(indexSet)
+                    
                 }
             }
             .navigationBarTitle("iHabits")
             .navigationBarItems(trailing: Button(action: {
-                // TODO: - Make it happen
                 // Bring up the adding sheet
                 self.showingSheet.toggle()
                 
@@ -33,6 +38,10 @@ struct ContentView: View {
                     SheetView(activitiesArray: self.activitiesArray)
             }
         }
+    }
+    
+    func deleteActivity(_ indexSet: IndexSet) {
+        activitiesArray.activities.remove(atOffsets: indexSet)
     }
 }
 
