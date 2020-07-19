@@ -16,13 +16,13 @@ struct DetailView: View {
         VStack {
             HStack {
                 VStack(alignment: .leading, spacing: 9) {
-                    Text("Activity Name: \(self.activitiesArray.activities[index].name)")
+                    Text("Activity Name: \(self.activitiesArray.activities.getElement(at: index)?.name ?? "")")
                         .font(.title)
                     
-                    Text("Activity Description: \(self.activitiesArray.activities[index].description ?? "No Description")")
+                    Text("Activity Description: \(self.activitiesArray.activities.getElement(at: index)?.description ?? "No Description")")
                         .font(.body)
                     
-                    Text("Completed Times: \(self.activitiesArray.activities[index].completedTimes)")
+                    Text("Completed Times: \(self.activitiesArray.activities.getElement(at: index)?.completedTimes ?? -1)")
                         .layoutPriority(1)
                 }
                 
@@ -36,7 +36,7 @@ struct DetailView: View {
             Button(action: {
                 self.activitiesArray.activities[self.index].completedTimes += 1
             }) {
-                Text("\(self.activitiesArray.activities[index].completedTimes == 0 ? "Complete" : "Complete Again🍻")")
+                Text("\(self.activitiesArray.activities.getElement(at: index)?.completedTimes == 0 ? "Complete" : "Complete Again🍻")")
                     .padding()
                     .layoutPriority(1)
                     .foregroundColor(.primary)
@@ -45,8 +45,15 @@ struct DetailView: View {
             
             Spacer()
         }
-        .navigationBarTitle("\(self.activitiesArray.activities[index].name) Details", displayMode: .inline)
+        .navigationBarTitle("\(self.activitiesArray.activities.getElement(at: index)?.name ?? "N/A") Details", displayMode: .inline)
     }
     
 }
 
+
+extension Array {
+    func getElement(at index: Int) -> Element? {
+        let isValidIndex = index >= 0 && index < count
+        return isValidIndex ? self[index] : nil
+    }
+}
