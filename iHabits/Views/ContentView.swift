@@ -18,14 +18,13 @@ struct ContentView: View {
             List {
                 ForEach(0 ..< activitiesArray.activities.count, id: \.self) { index in
                     
-                    //ForEach(activitiesArray.activities) { activity in
                     NavigationLink(destination: DetailView(activitiesArray: self.activitiesArray, index: index)) {
                         Text(self.activitiesArray.activities[index].name)
                         
                         Spacer()
                         
                         Text("Completion: \(self.activitiesArray.activities[index].completedTimes)")
-                        //.font(.custom("Courier New", size: 12))
+                        // .font(.custom("Courier New", size: 12))
                     }
                 }
                 .onDelete { (indexSet) in
@@ -40,7 +39,7 @@ struct ContentView: View {
                     
                 }, label: {
                     Image(systemName: "plus")
-                    //.scaleEffect(1.5)
+                    // .scaleEffect(1.5)
                 }))
                 .sheet(isPresented: $showingSheet) {
                     SheetView(activitiesArray: self.activitiesArray)
