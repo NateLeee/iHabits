@@ -10,19 +10,19 @@ import SwiftUI
 
 struct DetailView: View {
     @ObservedObject var activitiesArray: ActivitiesArray
-    var activity: Activity
+    var index: Int
     
     var body: some View {
         VStack {
             HStack {
                 VStack(alignment: .leading, spacing: 9) {
-                    Text("Activity Name: \(activity.name)")
+                    Text("Activity Name: \(self.activitiesArray.activities[index].name)")
                         .font(.title)
                     
-                    Text("Activity Description: \(activity.description ?? "No Description")")
+                    Text("Activity Description: \(self.activitiesArray.activities[index].description ?? "No Description")")
                         .font(.body)
                     
-                    Text("Completed Times: \(self.activitiesArray.currentActivity?.completedTimes ?? 239)")
+                    Text("Completed Times: \(self.activitiesArray.activities[index].completedTimes)")
                         .layoutPriority(1)
                 }
                 
@@ -34,19 +34,18 @@ struct DetailView: View {
             Spacer()
             
             Button(action: {
-                //                self.activitiesArray.currentActivity!.completedTimes += 1
-                
+                self.activitiesArray.activities[self.index].completedTimes += 1
             }) {
-                Text("\(self.activity.completedTimes == 0 ? "Complete" : "Complete Again🍻")")
+                Text("\(self.activitiesArray.activities[index].completedTimes == 0 ? "Complete" : "Complete Again🍻")")
                     .padding()
                     .layoutPriority(1)
                     .foregroundColor(.primary)
-                    .overlay(RoundedRectangle(cornerRadius: 18).stroke(Color.secondary, lineWidth: 1))
+                    .overlay(RoundedRectangle(cornerRadius: 9).stroke(Color.secondary, lineWidth: 1))
             }
             
             Spacer()
         }
-        .navigationBarTitle("\(self.activity.name) Details", displayMode: .inline)
+        .navigationBarTitle("\(self.activitiesArray.activities[index].name) Details", displayMode: .inline)
     }
     
 }
