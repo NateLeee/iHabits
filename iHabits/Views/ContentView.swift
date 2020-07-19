@@ -16,14 +16,15 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(Array(activitiesArray.activities.enumerated()), id: \.offset) { index, activity in
-                    NavigationLink(destination: DetailView(activitiesArray: self.activitiesArray, index: index)) {
+                ForEach(activitiesArray.activities) { activity in
+                    //NavigationLink(destination: DetailView(self.activitiesArray, activity)) {
+                    NavigationLink(destination: Text("DetailView")) {
                         Text(activity.name)
                         
                         Spacer()
                         
                         Text("Completion: \(activity.completedTimes)")
-                            .font(.custom("Courier New", size: 12))
+                            //.font(.custom("Courier New", size: 12))
                     }
                 }
                 .onDelete { (indexSet) in

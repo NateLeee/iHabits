@@ -24,6 +24,8 @@ class ActivitiesArray: ObservableObject {
         }
     }
     
+    @Published var currentActivity: Activity?
+    
     init() {
         // Try to decode from UserDefaults
         let jsonDecoder = JSONDecoder()

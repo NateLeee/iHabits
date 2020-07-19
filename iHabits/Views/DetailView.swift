@@ -10,26 +10,19 @@ import SwiftUI
 
 struct DetailView: View {
     @ObservedObject var activitiesArray: ActivitiesArray
-    var index: Int
-    
-    var currentActivity: Activity {
-        get {
-            activitiesArray.activities[index] // FIXME: - Thread 1: Fatal error: Index out of range.
-        }
-    }
+    var activity: Activity
     
     var body: some View {
         VStack {
             HStack {
-                VStack(alignment: .leading) {
-                    Text(currentActivity.name)
-                        .font(.largeTitle)
+                VStack(alignment: .leading, spacing: 9) {
+                    Text("Activity Name: \(activity.name)")
+                        .font(.title)
                     
-                    Text(currentActivity.description ?? "No Description")
+                    Text("Activity Description: \(activity.description ?? "No Description")")
                         .font(.body)
                     
-                    Text("Completed Times: \(currentActivity.completedTimes)")
-                        .font(.callout)
+                    Text("Completed Times: \(activitiesArray.currentActivity!.completedTimes)")
                         .layoutPriority(1)
                 }
                 
@@ -41,14 +34,25 @@ struct DetailView: View {
             Spacer()
             
             Button(action: {
-                self.activitiesArray.activities[self.index].completedTimes += 1
+                self.activitiesArray.currentActivity!.completedTimes += 1
+                
             }) {
-                Text("\(currentActivity.completedTimes == 0 ? "I Completed It!" : "I Completed It Again🍻")")
+                Text("\(self.activity.completedTimes == 0 ? "Complete" : "Complete Again🍻")")
+                    .padding()
+                    .layoutPriority(1)
+                    .foregroundColor(.primary)
+                    .overlay(RoundedRectangle(cornerRadius: 18).stroke(Color.secondary, lineWidth: 1))
             }
             
             Spacer()
         }
-        .navigationBarTitle("\(currentActivity.name) Details", displayMode: .inline)
+        .navigationBarTitle("\(self.activity.name) Details", displayMode: .inline)
+    }
+    
+    init(_ activitiesArray: ActivitiesArray, _ activity: Activity) {
+        self.activitiesArray = activitiesArray
+        self.activity = activity
+        self.activitiesArray.currentActivity = activity
     }
 }
 

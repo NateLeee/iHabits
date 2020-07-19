@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import AudioToolbox
 
 struct SheetView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -29,7 +30,11 @@ struct SheetView: View {
                 
                 Button(action: {
                     // TODO: - Maybe Check first
-                    
+                    guard self.activityName != "" else {
+                        // Haptic Feedback
+                        AudioServicesPlaySystemSound(1521)
+                        return
+                    }
                     
                     // Create an Activity instance and add it to the array!
                     let newActivity = Activity(
