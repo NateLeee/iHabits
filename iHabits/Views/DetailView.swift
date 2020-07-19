@@ -22,8 +22,8 @@ struct DetailView: View {
                     Text("Activity Description: \(activity.description ?? "No Description")")
                         .font(.body)
                     
-//                    Text("Completed Times: \(activitiesArray.currentActivity!.completedTimes)")
-//                        .layoutPriority(1)
+                    Text("Completed Times: \(self.activitiesArray.currentActivity?.completedTimes ?? 0)")
+                        .layoutPriority(1)
                 }
                 
                 Spacer()
@@ -34,7 +34,7 @@ struct DetailView: View {
             Spacer()
             
             Button(action: {
-//                self.activitiesArray.currentActivity!.completedTimes += 1
+                //                self.activitiesArray.currentActivity!.completedTimes += 1
                 
             }) {
                 Text("\(self.activity.completedTimes == 0 ? "Complete" : "Complete Again🍻")")
@@ -47,12 +47,16 @@ struct DetailView: View {
             Spacer()
         }
         .navigationBarTitle("\(self.activity.name) Details", displayMode: .inline)
+        .onAppear {
+            self.activitiesArray.currentActivity = self.activity
+        }
     }
     
     init(_ activitiesArray: ActivitiesArray, _ activity: Activity) {
         self.activitiesArray = activitiesArray
         self.activity = activity
-//        self.activitiesArray.currentActivity = activity
+        
+        //self.activitiesArray.currentActivity = activity
     }
 }
 

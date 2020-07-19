@@ -18,7 +18,6 @@ struct ContentView: View {
             List {
                 ForEach(activitiesArray.activities) { activity in
                     NavigationLink(destination: DetailView(self.activitiesArray, activity)) {
-//                    NavigationLink(destination: Text("DetailView")) {
                         Text(activity.name)
                         
                         Spacer()
