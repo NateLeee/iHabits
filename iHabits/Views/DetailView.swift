@@ -14,7 +14,7 @@ struct DetailView: View {
     
     var currentActivity: Activity {
         get {
-            activitiesArray.activities[index]
+            activitiesArray.activities[index] // FIXME: - Thread 1: Fatal error: Index out of range.
         }
     }
     
@@ -24,6 +24,9 @@ struct DetailView: View {
                 VStack(alignment: .leading) {
                     Text(currentActivity.name)
                         .font(.largeTitle)
+                    
+                    Text(currentActivity.description ?? "No Description")
+                        .font(.body)
                     
                     Text("Completed Times: \(currentActivity.completedTimes)")
                         .font(.callout)
