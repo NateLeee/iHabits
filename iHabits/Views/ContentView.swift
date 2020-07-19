@@ -17,7 +17,7 @@ struct ContentView: View {
         NavigationView {
             List {
                 ForEach(activitiesArray.activities) { activity in
-                    NavigationLink(destination: DetailView(self.activitiesArray, activity)) {
+                    NavigationLink(destination: DetailView(activitiesArray: self.activitiesArray, activity: activity)) {
                         Text(activity.name)
                         
                         Spacer()

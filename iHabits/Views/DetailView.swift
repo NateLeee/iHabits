@@ -22,7 +22,7 @@ struct DetailView: View {
                     Text("Activity Description: \(activity.description ?? "No Description")")
                         .font(.body)
                     
-                    Text("Completed Times: \(self.activitiesArray.currentActivity?.completedTimes ?? 0)")
+                    Text("Completed Times: \(self.activitiesArray.currentActivity?.completedTimes ?? 239)")
                         .layoutPriority(1)
                 }
                 
@@ -47,16 +47,7 @@ struct DetailView: View {
             Spacer()
         }
         .navigationBarTitle("\(self.activity.name) Details", displayMode: .inline)
-        .onAppear {
-            self.activitiesArray.currentActivity = self.activity
-        }
     }
     
-    init(_ activitiesArray: ActivitiesArray, _ activity: Activity) {
-        self.activitiesArray = activitiesArray
-        self.activity = activity
-        
-        //self.activitiesArray.currentActivity = activity
-    }
 }
 
