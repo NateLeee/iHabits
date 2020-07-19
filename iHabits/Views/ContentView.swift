@@ -16,7 +16,9 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List(activitiesArray.activities) { activity in
-                Text(activity.name)
+                NavigationLink(destination: DetailView()) {
+                    Text(activity.name)
+                }
             }
             .navigationBarTitle("iHabits")
             .navigationBarItems(trailing: Button(action: {
