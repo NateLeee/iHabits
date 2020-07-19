@@ -23,24 +23,24 @@ struct ContentView: View {
                 }
                 .onDelete { (indexSet) in
                     self.deleteActivity(indexSet)
-                    
                 }
             }
             .navigationBarTitle("iHabits")
-            .navigationBarItems(trailing: Button(action: {
-                // Bring up the adding sheet
-                self.showingSheet.toggle()
-                
-            }, label: {
-                Image(systemName: "plus")
-            }))
+            .navigationBarItems(leading: activitiesArray.activities.count > 0 ? EditButton() : nil
+                , trailing: Button(action: {
+                    // Bring up the adding sheet
+                    self.showingSheet.toggle()
+                    
+                }, label: {
+                    Image(systemName: "plus")
+                }))
                 .sheet(isPresented: $showingSheet) {
                     SheetView(activitiesArray: self.activitiesArray)
             }
         }
     }
     
-    func deleteActivity(_ indexSet: IndexSet) {
+    private func deleteActivity(_ indexSet: IndexSet) {
         activitiesArray.activities.remove(atOffsets: indexSet)
     }
 }
